@@ -44,7 +44,6 @@ import statusbar.lyric.tools.ActivityTools
 import statusbar.lyric.tools.ActivityTools.dataList
 import statusbar.lyric.tools.ActivityTools.isHook
 import statusbar.lyric.tools.BackupTools
-import statusbar.lyric.tools.ConfigTools
 import statusbar.lyric.tools.LogTools
 import statusbar.lyric.tools.LogTools.log
 import statusbar.lyric.tools.Tools.isNotNull
@@ -105,7 +104,6 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun init() {
-        ConfigTools(ActivityOwnSP.ownSP)
         updateConfigVer()
         requestPermission()
         registerReceiver()

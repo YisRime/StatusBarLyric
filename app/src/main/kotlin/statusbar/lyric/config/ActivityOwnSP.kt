@@ -23,34 +23,18 @@
 package statusbar.lyric.config
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import statusbar.lyric.BuildConfig
-import statusbar.lyric.MainActivity
-import statusbar.lyric.config.Config.Companion.CONFIG_NAME
-import statusbar.lyric.tools.Tools
 
 @SuppressLint("StaticFieldLeak")
 object ActivityOwnSP {
-    val ownSP by lazy { Tools.getSP(MainActivity.appContext, CONFIG_NAME) }
-    val config by lazy { Config(ownSP) }
-    private val ownEditor by lazy { ownSP.edit() }
+    val ownSP: SharedPreferences?
+        get() = ConfigStore.source
 
-    private fun set(key: String, any: Any) {
-        when (any) {
-            is Int -> ownEditor.putInt(key, any)
-            is Float -> ownEditor.putFloat(key, any)
-            is String -> ownEditor.putString(key, any)
-            is Boolean -> ownEditor.putBoolean(key, any)
-            is Long -> ownEditor.putLong(key, any)
-        }
-        ownEditor.apply()
-    }
-
-    private fun remove(key: String) {
-        ownEditor.remove(key).apply()
-    }
+    val config by lazy { Config() }
 
     fun updateConfigVer() {
-        if (ownSP.getInt("ver", 0) < BuildConfig.COMPOSE_CONFIG_VERSION) {
+        if (ConfigStore.opt("ver", 0) < BuildConfig.COMPOSE_CONFIG_VERSION) {
 
         }
     }

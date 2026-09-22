@@ -25,12 +25,12 @@ package statusbar.lyric.hook.module.xiaomi
 import android.os.Build
 import android.view.View
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
-import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
-import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed.moduleRes
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import io.github.kyuubiran.ezxhelper.core.helper.ObjectHelper.`-Static`.objectHelper
+import io.github.kyuubiran.ezxhelper.core.finder.ConstructorFinder.`-Static`.constructorFinder
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
 import statusbar.lyric.R
 import statusbar.lyric.config.XposedOwnSP.config
 import statusbar.lyric.hook.module.SystemUILyric
@@ -134,7 +134,7 @@ class XiaomiHooks {
                                         method.createHook {
                                             after { hookParam ->
                                                 hookParam.thisObject.objectHelper {
-                                                    setPadClockView(this.getObjectOrNullAs<View>("mPadClockView"))
+                                                    setPadClockView((this.getObjectOrNull("mPadClockView") as View?))
                                                 }
                                             }
                                         }
@@ -158,7 +158,7 @@ class XiaomiHooks {
                                         val clazz = hookParam.thisObject::class.java
                                         if (clazz.simpleName == "KeyguardStatusBarView") {
                                             hookParam.thisObject.objectHelper {
-                                                setCarrierLabel(this.getObjectOrNullAs<View>("mCarrierLabel"))
+                                                setCarrierLabel((this.getObjectOrNull("mCarrierLabel") as View?))
                                             }
                                         } else {
                                             setCarrierLabel(clazz.superclass.getField("mCarrierLabel").get(hookParam.thisObject) as View)

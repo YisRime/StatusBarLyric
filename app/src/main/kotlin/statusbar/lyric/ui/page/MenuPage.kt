@@ -212,13 +212,13 @@ fun MenuPage(
                         SuperArrow(
                             title = stringResource(R.string.backup_config),
                             onClick = {
-                                BackupTools.backup(ac, ActivityOwnSP.ownSP)
+                                ActivityOwnSP.ownSP?.let { BackupTools.backup(ac, it) }
                             }
                         )
                         SuperArrow(
                             title = stringResource(R.string.recovery_config),
                             onClick = {
-                                BackupTools.recovery(ac, ActivityOwnSP.ownSP)
+                                ActivityOwnSP.ownSP?.let { BackupTools.recovery(ac, it) }
                             }
                         )
                         SuperArrow(

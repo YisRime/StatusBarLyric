@@ -22,62 +22,20 @@
 
 package statusbar.lyric.tools
 
-import android.annotation.SuppressLint
-import android.content.SharedPreferences
-import de.robv.android.xposed.XSharedPreferences
-import statusbar.lyric.tools.Tools.isNull
+import statusbar.lyric.config.ConfigStore
 
 class ConfigTools {
-    private var xSP: XSharedPreferences? = null
-    private var mSP: SharedPreferences? = null
-    private var mSPEditor: SharedPreferences.Editor? = null
+    fun reload() = Unit
 
-    constructor(xSharedPreferences: XSharedPreferences?) {
-        xSP = xSharedPreferences
-        mSP = xSharedPreferences
+    fun put(key: String, any: Any) {
+        ConfigStore.put(key, any)
     }
 
-    @SuppressLint("CommitPrefEdits")
-    constructor(sharedPreferences: SharedPreferences) {
-        mSP = sharedPreferences
-        mSPEditor = sharedPreferences.edit()
-    }
-
-    fun reload() {
-        xSP.isNull {
-            xSP = Tools.getPref("Lyric_Config")
-            mSP = xSP
-            return
-        }
-        xSP?.reload()
-    }
-
-    fun put(key: String?, any: Any) {
-        when (any) {
-            is Int -> mSPEditor?.putInt(key, any)
-            is String -> mSPEditor?.putString(key, any)
-            is Boolean -> mSPEditor?.putBoolean(key, any)
-            is Float -> mSPEditor?.putFloat(key, any)
-        }
-        mSPEditor?.apply()
-    }
-
-    @Suppress("UNCHECKED_CAST")
     fun <T> opt(key: String, defValue: T): T {
-        mSP.isNull {
-            return defValue
-        }
-        return when (defValue) {
-            is String -> mSP!!.getString(key, defValue.toString()) as T
-            is Int -> mSP!!.getInt(key, defValue) as T
-            is Boolean -> mSP!!.getBoolean(key, defValue) as T
-            is Double -> mSP!!.getFloat(key, defValue.toFloat()) as T
-            is Float -> mSP!!.getFloat(key, defValue) as T
-            else -> "" as T
-        }
+        return ConfigStore.opt(key, defValue)
     }
 
     fun clearConfig() {
-        mSPEditor?.clear()?.apply()
+        ConfigStore.clearAll()
     }
 }

@@ -23,7 +23,7 @@
 package statusbar.lyric.hook.module
 
 import android.annotation.SuppressLint
-import android.app.AndroidAppHelper
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed
 import android.app.Application
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -53,13 +53,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
 import androidx.core.util.Consumer
-import com.github.kyuubiran.ezxhelper.ClassUtils.loadClassOrNull
-import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
-import com.github.kyuubiran.ezxhelper.HookFactory
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.ObjectHelper.Companion.objectHelper
-import com.github.kyuubiran.ezxhelper.finders.ConstructorFinder.`-Static`.constructorFinder
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
+import io.github.kyuubiran.ezxhelper.core.util.ClassUtil.loadClassOrNull
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed.moduleRes
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import io.github.kyuubiran.ezxhelper.core.helper.ObjectHelper.`-Static`.objectHelper
+import io.github.kyuubiran.ezxhelper.core.finder.ConstructorFinder.`-Static`.constructorFinder
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
 import com.hchen.superlyricapi.ISuperLyric
 import com.hchen.superlyricapi.SuperLyricData
 import com.hchen.superlyricapi.SuperLyricTool
@@ -97,7 +97,7 @@ import kotlin.math.abs
 import kotlin.math.min
 
 class SystemUILyric : BaseHook() {
-    private val context: Context by lazy { AndroidAppHelper.currentApplication() }
+    private val context: Context by lazy { EzXposed.appContext }
 
     private var lastLyric: String = ""
     private var lastColor: Int by observableChange(Color.WHITE) { oldValue, newValue ->
@@ -313,7 +313,7 @@ class SystemUILyric : BaseHook() {
                     if (!isMusicPlaying) return@after
 
                     val mIconTint =
-                        hookParam.thisObject.objectHelper().getObjectOrNullAs<Int>("mIconTint")
+                        hookParam.thisObject.objectHelper().getObjectOrNull("mIconTint") as Int?
                     lastColor = mIconTint ?: Color.BLACK
                 }
             }
@@ -330,7 +330,7 @@ class SystemUILyric : BaseHook() {
                         if (mode == 0) "mNotificationIconArea" else "mNotificationIconAreaInner"
                     if (clazz.simpleName == name) {
                         hookParam.thisObject.objectHelper {
-                            notificationIconArea = this.getObjectOrNullAs<View>(method)!!
+                            notificationIconArea = this.getObjectOrNull(method) as View
                         }
                     } else {
                         notificationIconArea =

@@ -22,8 +22,6 @@
 
 package statusbar.lyric.config
 
-import android.content.SharedPreferences
-import de.robv.android.xposed.XSharedPreferences
 import statusbar.lyric.BuildConfig
 import statusbar.lyric.tools.ConfigTools
 
@@ -32,15 +30,7 @@ class Config {
         const val CONFIG_NAME = "COMPOSE_CONFIG"
     }
 
-    var config: ConfigTools
-
-    constructor(xSharedPreferences: XSharedPreferences?) {
-        config = ConfigTools(xSharedPreferences)
-    }
-
-    constructor(sharedPreferences: SharedPreferences) {
-        config = ConfigTools(sharedPreferences)
-    }
+    var config = ConfigTools()
 
     fun update() {
         config.reload()

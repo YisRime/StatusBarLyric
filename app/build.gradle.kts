@@ -59,10 +59,11 @@ android {
     dependenciesInfo.includeInApk = false
     kotlin.jvmToolchain(21)
     packaging.resources.excludes += "**"
+    packaging.resources.merges += "META-INF/xposed/*"
 }
 
 dependencies {
-    compileOnly(libs.xposed)
+    compileOnly(libs.libxposed.api)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.compose.foundation)
@@ -74,7 +75,10 @@ dependencies {
     implementation(libs.haze)
     implementation(libs.miuix)
 
-    implementation(libs.ezXHelper)
+    implementation(libs.ezxhelper.core)
+    implementation(libs.ezxhelper.xposed)
+    implementation(libs.ezxhelper.android.utils)
+    implementation(libs.libxposed.service)
     implementation(libs.superlyricapi)
 
     debugImplementation(libs.androidx.ui.tooling.preview)

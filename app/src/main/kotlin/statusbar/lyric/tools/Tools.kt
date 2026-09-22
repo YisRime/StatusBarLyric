@@ -24,7 +24,6 @@ package statusbar.lyric.tools
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.icu.text.SimpleDateFormat
 import android.os.Build
@@ -35,14 +34,12 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import com.github.kyuubiran.ezxhelper.EzXHelper
-import de.robv.android.xposed.XSharedPreferences
-import de.robv.android.xposed.XposedHelpers
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed
+import io.github.kyuubiran.ezxhelper.core.util.ObjectUtil
 import statusbar.lyric.BuildConfig
 import statusbar.lyric.MainActivity
 import statusbar.lyric.R
 import statusbar.lyric.config.XposedOwnSP
-import statusbar.lyric.tools.ActivityTools.isHook
 import statusbar.lyric.tools.LogTools.log
 import java.io.DataOutputStream
 import java.lang.reflect.Field
@@ -125,7 +122,7 @@ object Tools {
         val parentViewId = XposedOwnSP.config.parentViewId
         val textSize = XposedOwnSP.config.textSize
         if (textViewClassName.isEmpty() || parentViewClassName.isEmpty() || textViewId == 0 || parentViewId == 0 || textSize == 0f) {
-            EzXHelper.moduleRes.getString(R.string.load_class_empty).log()
+            EzXposed.moduleRes.getString(R.string.load_class_empty).log()
             return false
         }
         if (this is TextView) {
@@ -167,24 +164,6 @@ object Tools {
         resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     fun String.dispose() = this.regexReplace(" ", "").regexReplace("\n", "")
-
-    fun getPref(key: String): XSharedPreferences? {
-        return try {
-            val pref = XSharedPreferences(BuildConfig.APPLICATION_ID, key)
-            if (pref.file.canRead()) pref else null
-        } catch (e: Throwable) {
-            e.log()
-            null
-        }
-    }
-
-    fun getSP(context: Context, key: String): SharedPreferences {
-        @Suppress("DEPRECATION", "WorldReadableFiles")
-        return context.createDeviceProtectedStorageContext()
-            .getSharedPreferences(
-                key, if (isHook()) Context.MODE_WORLD_READABLE else Context.MODE_PRIVATE
-            )
-    }
 
     fun shell(command: String, isSu: Boolean) {
         try {
@@ -246,7 +225,7 @@ object Tools {
     fun Any?.isNotNull() = this != null
 
     fun Any.getObjectField(fieldName: String): Any? {
-        return XposedHelpers.getObjectField(this, fieldName)
+        return ObjectUtil.getObjectUntilSuperclass(this, fieldName)
     }
 
     fun Any.getSuperObjectField(fieldName: String): Any? {
@@ -273,7 +252,8 @@ object Tools {
 
     fun Any?.existField(fieldName: String): Boolean {
         if (this == null) return false
-        return XposedHelpers.findFieldIfExists(this.javaClass, fieldName).isNotNull()
+        return generateSequence(this.javaClass) { it.superclass }
+            .any { clazz -> clazz.declaredFields.any { it.name == fieldName } }
     }
 
     fun Any?.existMethod(methodName: String): Boolean {
@@ -282,17 +262,17 @@ object Tools {
 
     fun Any.getObjectFieldIfExist(fieldName: String): Any? {
         return try {
-            XposedHelpers.getObjectField(this, fieldName)
+            ObjectUtil.getObjectUntilSuperclass(this, fieldName)
         } catch (_: Throwable) {
             null
         }
     }
 
     fun Any.setObjectField(fieldName: String, value: Any?) {
-        XposedHelpers.setObjectField(this, fieldName, value)
+        ObjectUtil.setObjectUntilSuperclass(this, fieldName, value)
     }
 
     fun Any.callMethod(methodName: String, vararg args: Any): Any? {
-        return XposedHelpers.callMethod(this, methodName, *args)
+        return ObjectUtil.invokeMethodBestMatch(this, methodName, null, *args)
     }
 }

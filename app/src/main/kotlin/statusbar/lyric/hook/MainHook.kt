@@ -22,13 +22,15 @@
 
 package statusbar.lyric.hook
 
-import com.github.kyuubiran.ezxhelper.EzXHelper
-import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
-import de.robv.android.xposed.IXposedHookLoadPackage
-import de.robv.android.xposed.IXposedHookZygoteInit
-import de.robv.android.xposed.callbacks.XC_LoadPackage
+import io.github.kyuubiran.ezxhelper.core.EzXReflection
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed.moduleRes
+import io.github.libxposed.api.XposedModule
+import io.github.libxposed.api.XposedModuleInterface.ModuleLoadedParam
+import io.github.libxposed.api.XposedModuleInterface.PackageLoadedParam
 import statusbar.lyric.BuildConfig
 import statusbar.lyric.R
+import statusbar.lyric.config.ConfigStore
 import statusbar.lyric.config.XposedOwnSP.config
 import statusbar.lyric.hook.module.Self
 import statusbar.lyric.hook.module.SystemUILyric
@@ -37,12 +39,18 @@ import statusbar.lyric.tools.LogTools
 import statusbar.lyric.tools.LogTools.log
 import java.util.Locale
 
-class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
-    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
-        LogTools.init(config.outLog)
+class MainHook : XposedModule() {
+    override fun onModuleLoaded(param: ModuleLoadedParam) {
+        EzXposed.initOnModuleLoaded(this, param)
+        EzXposed.initModuleResources()
+    }
 
-        EzXHelper.initHandleLoadPackage(lpparam)
-        when (lpparam.packageName) {
+    override fun onPackageLoaded(param: PackageLoadedParam) {
+        EzXposed.initOnPackageLoaded(param)
+        EzXReflection.init(param.defaultClassLoader)
+        attachPreferences()
+        LogTools.init(config.outLog)
+        when (param.packageName) {
             "com.android.systemui" -> {
                 if (!config.masterSwitch) {
                     moduleRes.getString(R.string.master_off).log()
@@ -68,12 +76,10 @@ class MainHook : IXposedHookLoadPackage, IXposedHookZygoteInit {
         }
     }
 
-    override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
-        EzXHelper.initZygote(startupParam)
-        if (!config.masterSwitch) {
-            moduleRes.getString(R.string.master_off).log()
-            return
-        }
+    private fun attachPreferences() {
+        runCatching {
+            ConfigStore.attach(getRemotePreferences(ConfigStore.GROUP), false)
+        }.onFailure { it.log() }
     }
 
     private fun initHooks(vararg hook: BaseHook) {

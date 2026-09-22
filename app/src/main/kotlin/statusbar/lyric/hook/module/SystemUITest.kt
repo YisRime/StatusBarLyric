@@ -34,10 +34,10 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.github.kyuubiran.ezxhelper.EzXHelper.moduleRes
-import com.github.kyuubiran.ezxhelper.HookFactory.`-Static`.createHook
-import com.github.kyuubiran.ezxhelper.finders.MethodFinder.`-Static`.methodFinder
-import de.robv.android.xposed.XC_MethodHook
+import io.github.kyuubiran.ezxhelper.xposed.EzXposed.moduleRes
+import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
+import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
+import io.github.libxposed.api.XposedInterface
 import statusbar.lyric.R
 import statusbar.lyric.config.XposedOwnSP.config
 import statusbar.lyric.data.Data
@@ -53,7 +53,7 @@ import java.time.LocalDateTime
 import java.util.Locale
 
 class SystemUITest : BaseHook() {
-    private lateinit var hook: XC_MethodHook.Unhook
+    private lateinit var hook: XposedInterface.HookHandle
     private var lastTime: Int = 0
     lateinit var context: Context
     lateinit var lastView: TextView
