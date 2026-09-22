@@ -16,15 +16,15 @@ if (rootProject.file("local.properties").canRead()) {
 }
 
 android {
-    namespace = "de.yisrime.lycbar"
+    namespace = "de.yisrime.lrcbar"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "de.yisrime.lycbar"
+        applicationId = "de.yisrime.lrcbar"
         minSdk = 30
         targetSdk = 36
-        versionCode = 101
-        versionName = "1.0.1"
+        versionCode = 102
+        versionName = "1.0.2"
         buildConfigField("long", "BUILD_TIME", "$buildTime")
         buildConfigField("int", "COMPOSE_CONFIG_VERSION", "1")
     }
