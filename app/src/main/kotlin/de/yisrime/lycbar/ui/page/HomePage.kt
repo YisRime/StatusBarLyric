@@ -42,7 +42,6 @@ import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -58,6 +57,7 @@ import dev.chrisbanes.haze.HazeStyle
 import dev.chrisbanes.haze.HazeTint
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.hazeSource
+import de.yisrime.lycbar.LyricApplication
 import de.yisrime.lycbar.MainActivity
 import de.yisrime.lycbar.MainActivity.Companion.isLoad
 import de.yisrime.lycbar.R
@@ -89,7 +89,10 @@ fun HomePage(
     currentRoute: String
 ) {
     val scrollBehavior = MiuixScrollBehavior(rememberTopAppBarState())
-    val masterSwitchState = remember { mutableStateOf(if (isLoad) config.masterSwitch else false) }
+    val serviceReady = LyricApplication.ready.value
+    val masterSwitchState = remember(serviceReady, isLoad) {
+        mutableStateOf(if (isLoad && serviceReady) config.masterSwitch else false)
+    }
 
     val hazeState = remember { HazeState() }
     val hazeStyle = HazeStyle(
@@ -101,13 +104,6 @@ fun HomePage(
             )
         )
     )
-
-    LaunchedEffect(Unit) {
-        if (!isLoad) {
-            masterSwitchState.value = false
-            config.masterSwitch = false
-        }
-    }
 
     Scaffold(
         topBar = {

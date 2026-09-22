@@ -47,6 +47,11 @@ object ConfigStore {
         this.writable = writable
     }
 
+    fun detach() {
+        prefs = null
+        writable = false
+    }
+
     @Suppress("UNCHECKED_CAST")
     fun <T> opt(key: String, default: T): T {
         val sp = prefs ?: return default

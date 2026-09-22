@@ -27,6 +27,8 @@ package de.yisrime.lycbar
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
 import io.github.libxposed.service.XposedService
 import io.github.libxposed.service.XposedServiceHelper
 import de.yisrime.lycbar.config.ConfigStore
@@ -39,10 +41,14 @@ class LyricApplication : Application() {
                 runCatching {
                     ConfigStore.attach(service.getRemotePreferences(ConfigStore.GROUP), true)
                     importLegacyPreferences()
-                }
+                }.onFailure { Log.e(TAG, "框架服务绑定失败", it) }
+                ready.value = ConfigStore.source != null
             }
 
-            override fun onServiceDied(service: XposedService) = Unit
+            override fun onServiceDied(service: XposedService) {
+                ConfigStore.detach()
+                ready.value = false
+            }
         })
     }
 
@@ -58,5 +64,11 @@ class LyricApplication : Application() {
         }
         direct.deleteSharedPreferences(name)
         deleteSharedPreferences(name)
+    }
+
+    companion object {
+        private const val TAG = "StatusBarLyric"
+
+        val ready = mutableStateOf(false)
     }
 }
