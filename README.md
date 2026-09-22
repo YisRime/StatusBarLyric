@@ -3,7 +3,7 @@
 <div align="center">
 
 ![Release Download](https://img.shields.io/github/downloads/YisRime/StatusBarLyric/total?style=flat-square)
-![Release Download](https://img.shields.io/github/downloads/Xposed-Modules-Repo/de.yisrime.lycbar/total?style=flat-square)
+![Release Download](https://img.shields.io/github/downloads/Xposed-Modules-Repo/de.yisrime.lrcbar/total?style=flat-square)
 [![Release Version](https://img.shields.io/github/v/release/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/releases/latest)  
 [![GitHub Star](https://img.shields.io/github/stars/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/stargazers)
 [![GitHub Fork](https://img.shields.io/github/forks/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/network/members)
