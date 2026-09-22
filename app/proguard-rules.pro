@@ -20,8 +20,8 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -optimizationpasses 5
--keep class statusbar.lyric.hook.MainHook { <init>(); }
--keep class statusbar.lyric.tools.ActivityTools { isHook(); }
+-keep class de.yisrime.lycbar.hook.MainHook { <init>(); }
+-keep class de.yisrime.lycbar.tools.ActivityTools { isHook(); }
 -dontskipnonpubliclibraryclassmembers
 -allowaccessmodification
 -optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*,!code/allocation/variable

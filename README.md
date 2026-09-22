@@ -2,22 +2,21 @@
 
 <div align="center">
 
-![Release Download](https://img.shields.io/github/downloads/577fkj/StatusBarLyric/total?style=flat-square)
-![Release Download](https://img.shields.io/github/downloads/Xposed-Modules-Repo/statusbar.lyric/total?style=flat-square)
-[![Release Version](https://img.shields.io/github/v/release/577fkj/StatusBarLyric?style=flat-square)](https://github.com/577fkj/StatusBarLyric/releases/latest)  
-[![GitHub Star](https://img.shields.io/github/stars/577fkj/StatusBarLyric?style=flat-square)](https://github.com/577fkj/StatusBarLyric/stargazers)
-[![GitHub Fork](https://img.shields.io/github/forks/577fkj/StatusBarLyric?style=flat-square)](https://github.com/577fkj/StatusBarLyric/network/members)
-![GitHub Repo size](https://img.shields.io/github/repo-size/577fkj/StatusBarLyric?style=flat-square&color=3cb371)
-[![GitHub license](https://img.shields.io/github/license/577fkj/StatusBarLyric?style=flat-square)](LICENSE)
-[![GitHub Repo Languages](https://img.shields.io/github/languages/top/577fkj/StatusBarLyric?style=flat-square)](https://github.com/577fkj/StatusBarLyric/search?l=java)  
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2F577fkj%2FStatusBarLyric%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/577fkj/StatusBarLyric/goto?ref=main)
-[![Telegram](https://img.shields.io/badge/电报群-StatusBatLyric-blue.svg?style=flat-square&color=12b7f5)](https://t.me/StatusBatLyric)
+![Release Download](https://img.shields.io/github/downloads/YisRime/StatusBarLyric/total?style=flat-square)
+![Release Download](https://img.shields.io/github/downloads/Xposed-Modules-Repo/de.yisrime.lycbar/total?style=flat-square)
+[![Release Version](https://img.shields.io/github/v/release/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/releases/latest)  
+[![GitHub Star](https://img.shields.io/github/stars/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/stargazers)
+[![GitHub Fork](https://img.shields.io/github/forks/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/network/members)
+![GitHub Repo size](https://img.shields.io/github/repo-size/YisRime/StatusBarLyric?style=flat-square&color=3cb371)
+[![GitHub license](https://img.shields.io/github/license/YisRime/StatusBarLyric?style=flat-square)](LICENSE)
+[![GitHub Repo Languages](https://img.shields.io/github/languages/top/YisRime/StatusBarLyric?style=flat-square)](https://github.com/YisRime/StatusBarLyric/search?l=java)  
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FYisRime%2FStatusBarLyric%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/YisRime/StatusBarLyric/goto?ref=main)
 
 </div>
 
 ## 版本与作者
 
-- 版本：8.0.0（versionCode 800）
+- 版本：1.0.0（versionCode 100）
 - 原项目作者：[577fkj](https://github.com/577fkj/StatusBarLyric) / [Block-Network](https://github.com/Block-Network/StatusBarLyric)
 - 本分支维护与 libxposed 适配：[Yis_Rime](https://github.com/YisRime)
 
@@ -31,15 +30,14 @@
 
 ### 下载
 
-- [Releases](https://github.com/577fkj/StatusBarLyric/releases)
-- [Beta](https://github.com/577fkj/StatusBarLyric/actions/workflows/Android.yml)
-- [Canary](https://github.com/577fkj/StatusBarLyric/actions/workflows/Android_Dev.yml)
+- [Releases](https://github.com/YisRime/StatusBarLyric/releases)
+- [Beta](https://github.com/YisRime/StatusBarLyric/actions/workflows/Android.yml)
+- [Canary](https://github.com/YisRime/StatusBarLyric/actions/workflows/Android_Dev.yml)
 
 ---
 
 ## 帮助翻译
 
-[![Crowdin](https://badges.crowdin.net/statusbarlyric/localized.svg)](https://crowdin.com/project/statusbarlyric)
 
 ---
 
@@ -55,4 +53,4 @@
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=Block-Network/StatusBarLyric&type=Date)](https://star-history.com/#Block-Network/StatusBarLyric&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=YisRime/StatusBarLyric&type=Date)](https://star-history.com/#YisRime/StatusBarLyric&Date)

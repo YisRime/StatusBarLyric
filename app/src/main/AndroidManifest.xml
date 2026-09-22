@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <queries>
-        <package android:name="cn.lyric.getter" />
+        <package android:name="de.yisrime.lrcget" />
     </queries>
 
     <application

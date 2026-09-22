@@ -16,15 +16,15 @@ if (rootProject.file("local.properties").canRead()) {
 }
 
 android {
-    namespace = "statusbar.lyric"
+    namespace = "de.yisrime.lycbar"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "statusbar.lyric"
+        applicationId = "de.yisrime.lycbar"
         minSdk = 30
         targetSdk = 36
-        versionCode = 800
-        versionName = "8.0.0"
+        versionCode = 100
+        versionName = "1.0.0"
         buildConfigField("long", "BUILD_TIME", "$buildTime")
         buildConfigField("int", "COMPOSE_CONFIG_VERSION", "1")
     }
