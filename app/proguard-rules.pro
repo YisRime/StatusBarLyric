@@ -21,6 +21,7 @@
 #-renamesourcefileattribute SourceFile
 -optimizationpasses 5
 -keep class de.yisrime.lrcbar.hook.MainHook { <init>(); }
+-keep class cn.lyric.getter.api.data.* { *; }
 -dontskipnonpubliclibraryclassmembers
 -allowaccessmodification
 -optimizations !code/simplification/arithmetic,!code/simplification/cast,!field/*,!class/merging/*,!code/allocation/variable

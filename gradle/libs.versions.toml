@@ -10,7 +10,7 @@ libxposed-service = "101.0.0"
 haze = "1.5.4"
 kotlin = "2.3.21"
 miuix = "0.4.3"
-super-lyric-api = "1.7"
+lyric-getter-api = "7.0.0"
 
 [libraries]
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidx-compose-foundation" }
@@ -28,7 +28,7 @@ libxposed-api = { module = "io.github.libxposed:api", version.ref = "libxposed" 
 libxposed-service = { module = "io.github.libxposed:service", version.ref = "libxposed-service" }
 haze = { module = "dev.chrisbanes.haze:haze", version.ref = "haze" }
 miuix = { module = "top.yukonga.miuix.kmp:miuix-android", version.ref = "miuix" }
-superlyricapi = { module = "com.github.HChenX:SuperLyricApi", version.ref = "super-lyric-api" }
+lyric-getter-api = { module = "com.github.HChenX:Lyric-Getter-Api", version.ref = "lyric-getter-api" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }

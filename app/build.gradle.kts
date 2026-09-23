@@ -23,8 +23,8 @@ android {
         applicationId = "de.yisrime.lrcbar"
         minSdk = 30
         targetSdk = 36
-        versionCode = 102
-        versionName = "1.0.2"
+        versionCode = 103
+        versionName = "1.0.3"
         buildConfigField("long", "BUILD_TIME", "$buildTime")
         buildConfigField("int", "COMPOSE_CONFIG_VERSION", "1")
     }
@@ -79,7 +79,7 @@ dependencies {
     implementation(libs.ezxhelper.xposed)
     implementation(libs.ezxhelper.android.utils)
     implementation(libs.libxposed.service)
-    implementation(libs.superlyricapi)
+    implementation(libs.lyric.getter.api)
 
     debugImplementation(libs.androidx.ui.tooling.preview)
     debugImplementation(libs.androidx.ui.tooling)

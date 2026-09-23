@@ -38,7 +38,6 @@ import android.graphics.PorterDuff
 import android.graphics.Shader
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
-import android.media.session.PlaybackState
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -61,10 +60,12 @@ import io.github.kyuubiran.ezxhelper.xposed.dsl.HookFactory.`-Static`.createHook
 import io.github.kyuubiran.ezxhelper.core.helper.ObjectHelper.`-Static`.objectHelper
 import io.github.kyuubiran.ezxhelper.core.finder.ConstructorFinder.`-Static`.constructorFinder
 import io.github.kyuubiran.ezxhelper.core.finder.MethodFinder.`-Static`.methodFinder
-import com.hchen.superlyricapi.ISuperLyric
-import com.hchen.superlyricapi.SuperLyricData
-import com.hchen.superlyricapi.SuperLyricTool
-import com.hchen.superlyricapi.SuperLyricTool.base64ToBitmap
+import cn.lyric.getter.api.data.ExtraData
+import cn.lyric.getter.api.data.LyricData
+import cn.lyric.getter.api.listener.LyricListener
+import cn.lyric.getter.api.listener.LyricReceiver
+import cn.lyric.getter.api.tools.Tools.base64ToBitmap
+import cn.lyric.getter.api.tools.Tools.registerLyricListener
 import de.yisrime.lrcbar.R
 import de.yisrime.lrcbar.config.XposedOwnSP.config
 import de.yisrime.lrcbar.hook.BaseHook
@@ -223,7 +224,7 @@ class SystemUILyric : BaseHook() {
         "Initializing Hook".log()
         Application::class.java.methodFinder().filterByName("attach").single().createHook {
             after { hook ->
-                registerSuperLyric(hook.args[0] as Context)
+                registerReceiver(hook.args[0] as Context)
             }
         }
 
@@ -596,63 +597,62 @@ class SystemUILyric : BaseHook() {
         }
     }
     private var lastRunnable: Runnable? = null
-    private val showTitleConsumer: Consumer<SuperLyricData> = object : Consumer<SuperLyricData> {
-        override fun accept(value: SuperLyricData) {
+    private val showTitleConsumer: Consumer<LyricData> = object : Consumer<LyricData> {
+        override fun accept(value: LyricData) {
             if (!isMusicPlaying) return
-            if (playingApp != value.packageName) return
+            if (playingApp != value.extraData.packageName) return
 
-            this@SystemUILyric.title = value.title
+            this@SystemUILyric.title = value.extraData.title
         }
     }
 
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
-    private fun registerSuperLyric(context: Context) {
-        SuperLyricTool.registerSuperLyric(context, object : ISuperLyric.Stub() {
-            override fun onStop(data: SuperLyricData?) {
-                if (data == null) return
-                if (!isReady) return
-                if (data.playbackState?.state == PlaybackState.STATE_BUFFERING) return
-                if (playingApp.isNotEmpty() && playingApp != data.packageName) return
+    private fun registerReceiver(context: Context) {
+        registerLyricListener(
+            context,
+            LyricReceiver(object : LyricListener() {
+                override fun onStop(lyricData: LyricData) {
+                    if (!isReady) return
+                    val packageName = lyricData.extraData.packageName
+                    if (playingApp.isNotEmpty() && packageName.isNotEmpty() && playingApp != packageName) return
 
-                lastLyric = ""
-                playingApp = ""
-                isMusicPlaying = false
-                if (lastRunnable.isNotNull()) handler.removeCallbacks(lastRunnable!!)
-                if (handler.hasMessages(timeoutRestore)) handler.removeMessages(timeoutRestore)
-                updateLyricState(showLyric = false)
-            }
-
-            override fun onSuperLyric(data: SuperLyricData?) {
-                if (data == null) return
-                if (!isReady) return
-
-                playingApp = data.packageName
-                if (data.isExistMediaMetadata) {
-                    if (config.titleSwitch) {
-                        if (lastArtist != data.artist || lastAlbum != data.album) {
-                            lastArtist = data.artist
-                            lastAlbum = data.album
-
-                            if (lastRunnable.isNotNull()) handler.removeCallbacks(lastRunnable!!)
-                            lastRunnable = Runnable { showTitleConsumer.accept(data) }
-
-                            ("Title: " + data.title + ", Artist: " + lastArtist + ", Album: " + lastAlbum).log()
-                        }
-                    }
+                    lastLyric = ""
+                    playingApp = ""
+                    isMusicPlaying = false
+                    if (lastRunnable.isNotNull()) handler.removeCallbacks(lastRunnable!!)
+                    if (handler.hasMessages(timeoutRestore)) handler.removeMessages(timeoutRestore)
+                    updateLyricState(showLyric = false)
                 }
-                if (data.lyric.isEmpty()) return
-                isMusicPlaying = true
-                lastLyric = data.lyric
-                if (lastRunnable.isNotNull()) handler.postDelayed(lastRunnable!!, 800)
 
-                changeIcon(data)
-                updateLyricState(delay = data.delay)
-                if (handler.hasMessages(timeoutRestore)) {
+                override fun onMediaData(lyricData: LyricData) {
+                    if (!isReady || !config.titleSwitch) return
+                    val extra = lyricData.extraData
+                    if (lastArtist == extra.artist && lastAlbum == extra.album) return
+
+                    lastArtist = extra.artist
+                    lastAlbum = extra.album
+                    if (lastRunnable.isNotNull()) handler.removeCallbacks(lastRunnable!!)
+                    lastRunnable = Runnable { showTitleConsumer.accept(lyricData) }
+
+                    ("Title: " + extra.title + ", Artist: " + lastArtist + ", Album: " + lastAlbum).log()
+                }
+
+                override fun onUpdate(lyricData: LyricData) {
+                    if (!isReady) return
+                    if (lyricData.lyric.isEmpty()) return
+
+                    playingApp = lyricData.extraData.packageName
+                    isMusicPlaying = true
+                    lastLyric = lyricData.lyric
+                    if (lastRunnable.isNotNull()) handler.postDelayed(lastRunnable!!, 800)
+
+                    changeIcon(lyricData.extraData)
+                    updateLyricState(delay = lyricData.extraData.delay)
                     handler.removeMessages(timeoutRestore)
                     handler.sendEmptyMessageDelayed(timeoutRestore, 10000L)
-                } else handler.sendEmptyMessageDelayed(timeoutRestore, 10000L)
-            }
-        })
+                }
+            })
+        )
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             context.registerReceiver(
@@ -680,7 +680,7 @@ class SystemUILyric : BaseHook() {
             }
         }
 
-        "Register SuperLyric".log()
+        "Register Lyric Getter".log()
     }
 
     // 适用于直接显示歌词，不需要考虑其他类似焦点通知的状态
@@ -738,7 +738,7 @@ class SystemUILyric : BaseHook() {
     }
 
     // 更改图标
-    private fun changeIcon(it: SuperLyricData) {
+    private fun changeIcon(it: ExtraData) {
         if (!iconSwitch) return
         if (!isMusicPlaying) return
 
