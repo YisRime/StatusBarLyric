@@ -158,4 +158,7 @@
     <string name="buildtime">编译时间</string>
     <string name="currentdevice">当前设备</string>
     <string name="info">信息</string>
+    <string name="no_lyric_getter">未安装 Lyric Getter！</string>
+    <string name="no_supported_version_lyric_getter">不支持的 Lyric Getter！</string>
+    <string name="click_to_install">点击安装最新版本</string>
 </resources>

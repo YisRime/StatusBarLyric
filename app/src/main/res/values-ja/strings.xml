@@ -158,4 +158,7 @@
     <string name="buildtime">コンパイル時</string>
     <string name="currentdevice">現在のデバイス</string>
     <string name="info">情報</string>
+    <string name="no_lyric_getter">LyricGetter がありません</string>
+    <string name="no_supported_version_lyric_getter">LyricGetter に非対応</string>
+    <string name="click_to_install">タップで最新のバージョンをインストール</string>
 </resources>

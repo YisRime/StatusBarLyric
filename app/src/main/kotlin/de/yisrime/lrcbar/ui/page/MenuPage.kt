@@ -284,6 +284,15 @@ fun MenuPage(
                         Text(
                             text = "$getPhoneName (${Build.DEVICE}) SDK${Build.VERSION.SDK_INT}",
                             fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(horizontal = 12.dp)
+                        )
+                        Text(
+                            text = "Lyric Getter",
+                            modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 12.dp)
+                        )
+                        Text(
+                            text = "API${BuildConfig.API_VERSION} \uD83D\uDE0A",
+                            fontWeight = FontWeight.Medium,
                             modifier = Modifier.padding(start = 12.dp, end = 12.dp, bottom = 12.dp)
                         )
                     }

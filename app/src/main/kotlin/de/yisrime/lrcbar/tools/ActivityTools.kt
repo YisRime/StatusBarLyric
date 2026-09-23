@@ -25,10 +25,13 @@ package de.yisrime.lrcbar.tools
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.graphics.toColorInt
+import androidx.core.net.toUri
 import de.yisrime.lrcbar.MainActivity
 import de.yisrime.lrcbar.R
 import de.yisrime.lrcbar.data.Data
@@ -92,6 +95,18 @@ object ActivityTools {
             }
         }
         unit(value)
+    }
+
+    fun checkInstalled(pkgName: String): ApplicationInfo? {
+        return try {
+            MainActivity.appContext.packageManager.getApplicationInfo(pkgName, PackageManager.GET_META_DATA)
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    fun openUrl(url: String) {
+        MainActivity.appContext.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
     }
 
     fun restartApp() {
