@@ -9,7 +9,6 @@
     <string name="module_fifth">Floating title</string>
     <string name="module_sixth">Animation settings</string>
     <string name="menu_page">Menu</string>
-    <string name="show_logcat">Show Logcat</string>
     <string name="show_launcher_icon">Show Icon</string>
     <string name="module_extend">Please restart the system interface and player after modifying this page</string>
     <string name="xposed_tips">If the lyrics cannot be displayed, please try to stop the music software and restart the SystemUI</string>
@@ -163,4 +162,11 @@
     <string name="no_lyric_getter">LyricGetter Not Found!</string>
     <string name="no_supported_version_lyric_getter">Unsupported LyricGetter</string>
     <string name="click_to_install">Click to install the latest version</string>
+    <string name="log_page">Logs</string>
+    <string name="log_page_tips">View the module log output</string>
+    <string name="log_refresh">Reload</string>
+    <string name="log_clear">Clear</string>
+    <string name="log_loading">Loading logs...</string>
+    <string name="log_no_root">Root permission is required to read logs</string>
+    <string name="log_empty">No log entries</string>
 </resources>

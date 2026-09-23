@@ -9,7 +9,6 @@
     <string name="module_fifth">懸浮標題</string>
     <string name="module_sixth">動效設置</string>
     <string name="menu_page">菜單</string>
-    <string name="show_logcat">輸出日誌</string>
     <string name="show_launcher_icon">顯示圖示</string>
     <string name="module_extend">修改本頁面後請重啟系統界面及播放器</string>
     <string name="xposed_tips">如無法顯示歌詞請重新啟動系統界面及播放器</string>
@@ -161,4 +160,11 @@
     <string name="no_lyric_getter">未安裝 Lyric Getter！</string>
     <string name="no_supported_version_lyric_getter">不支持的 Lyric Getter！</string>
     <string name="click_to_install">點擊安裝最新版本</string>
+    <string name="log_page">日誌</string>
+    <string name="log_page_tips">檢視模組執行日誌</string>
+    <string name="log_refresh">重新讀取</string>
+    <string name="log_clear">清空日誌</string>
+    <string name="log_loading">正在讀取日誌…</string>
+    <string name="log_no_root">讀取日誌需要 Root 授權</string>
+    <string name="log_empty">暫無日誌</string>
 </resources>

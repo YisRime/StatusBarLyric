@@ -27,8 +27,8 @@ import android.util.Log
 
 object LogTools {
     private const val MAX_LENGTH = 4000
-    private const val TAG = "StatusBarLyric"
-    private const val XP_TAG = "LSPosed-Bridge"
+    const val TAG = "StatusBarLyric"
+    const val XP_TAG = "LSPosed-Bridge"
     private var outprint = false
 
 
@@ -57,5 +57,21 @@ object LogTools {
 
     fun init(out: Boolean) {
         outprint = out
+    }
+
+    private const val CAPTURE = "logcat -d -v time -s $TAG:* $XP_TAG:*"
+    private const val CLEAR = "logcat -c"
+
+    fun capture(): String? = execAsRoot(CAPTURE)
+
+    fun clear(): Boolean = execAsRoot(CLEAR) != null
+
+    private fun execAsRoot(command: String): String? = try {
+        val process = Runtime.getRuntime().exec(arrayOf("su", "-c", command))
+        val output = process.inputStream.bufferedReader().readText()
+        process.waitFor()
+        if (process.exitValue() == 0) output else null
+    } catch (_: Exception) {
+        null
     }
 }

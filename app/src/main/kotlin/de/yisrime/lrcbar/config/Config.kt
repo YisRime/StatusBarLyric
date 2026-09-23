@@ -55,13 +55,6 @@ class Config {
         set(value) {
             config.put("hideTime", value)
         }
-    var outLog: Boolean
-        get() {
-            return if (BuildConfig.DEBUG) true else config.opt("outlog", false)
-        }
-        set(value) {
-            config.put("outlog", value)
-        }
     var showLauncherIcon: Boolean
         get() {
             return config.opt("showLauncherIcon", true)

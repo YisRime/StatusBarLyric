@@ -109,10 +109,7 @@ class MainActivity : ComponentActivity() {
         updateConfigVer()
         requestPermission()
         registerReceiver()
-        if (!BuildConfig.DEBUG) {
-            LogTools.init(true)
-        }
-        LogTools.init(config.outLog)
+        LogTools.init(true)
     }
 
     private fun requestPermission() {

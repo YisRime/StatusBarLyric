@@ -104,7 +104,6 @@ fun MenuPage(
 ) {
     val scrollBehavior = MiuixScrollBehavior(rememberTopAppBarState())
     val ac = LocalContext.current as Activity
-    val outLog = remember { mutableStateOf(config.outLog) }
     val showLauncherIcon = remember { mutableStateOf(config.showLauncherIcon) }
     val showDialog = remember { mutableStateOf(false) }
     val showResetDialog = remember { mutableStateOf(false) }
@@ -191,16 +190,13 @@ fun MenuPage(
                                     )
                                 }
                             )
-                            if (!BuildConfig.DEBUG) {
-                                SuperSwitch(
-                                    title = stringResource(R.string.show_logcat),
-                                    checked = outLog.value,
-                                    onCheckedChange = {
-                                        outLog.value = it
-                                        config.outLog = it
-                                    }
-                                )
-                            }
+                            SuperArrow(
+                                title = stringResource(R.string.log_page),
+                                summary = stringResource(R.string.log_page_tips),
+                                onClick = {
+                                    navController.navigate("LogPage")
+                                }
+                            )
                         }
                     }
                 }

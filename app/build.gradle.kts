@@ -23,8 +23,8 @@ android {
         applicationId = "de.yisrime.lrcbar"
         minSdk = 30
         targetSdk = 36
-        versionCode = 104
-        versionName = "1.0.4"
+        versionCode = 105
+        versionName = "1.0.5"
         buildConfigField("long", "BUILD_TIME", "$buildTime")
         buildConfigField("int", "COMPOSE_CONFIG_VERSION", "1")
         buildConfigField("int", "API_VERSION", "6")

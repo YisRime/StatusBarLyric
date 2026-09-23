@@ -49,7 +49,7 @@ class MainHook : XposedModule() {
         EzXposed.initOnPackageLoaded(param)
         EzXReflection.init(param.defaultClassLoader)
         attachPreferences()
-        LogTools.init(config.outLog)
+        LogTools.init(true)
         when (param.packageName) {
             "com.android.systemui" -> {
                 if (!config.masterSwitch) {

@@ -9,7 +9,6 @@
     <string name="module_fifth">フローティングタイトル</string>
     <string name="module_sixth">アニメーションの設定</string>
     <string name="menu_page">メニュー</string>
-    <string name="show_logcat">logcat を表示</string>
     <string name="show_launcher_icon">アイコンを表示</string>
     <string name="module_extend">このページを変更後にシステムインターフェースとプレーヤーを再起動してください</string>
     <string name="xposed_tips">歌詞を表示できないときは、音楽アプリを停止してシステム UI を再起動してください</string>
@@ -161,4 +160,11 @@
     <string name="no_lyric_getter">LyricGetter がありません</string>
     <string name="no_supported_version_lyric_getter">LyricGetter に非対応</string>
     <string name="click_to_install">タップで最新のバージョンをインストール</string>
+    <string name="log_page">ログ</string>
+    <string name="log_page_tips">モジュールのログを表示</string>
+    <string name="log_refresh">再読み込み</string>
+    <string name="log_clear">ログを消去</string>
+    <string name="log_loading">ログを読み込み中…</string>
+    <string name="log_no_root">ログの読み取りに Root 権限が必要です</string>
+    <string name="log_empty">ログはありません</string>
 </resources>

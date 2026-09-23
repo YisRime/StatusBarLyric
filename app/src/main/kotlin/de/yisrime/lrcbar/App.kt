@@ -64,6 +64,7 @@ import de.yisrime.lrcbar.ui.page.ExtendPage
 import de.yisrime.lrcbar.ui.page.HomePage
 import de.yisrime.lrcbar.ui.page.IconPage
 import de.yisrime.lrcbar.ui.page.LyricPage
+import de.yisrime.lrcbar.ui.page.LogPage
 import de.yisrime.lrcbar.ui.page.MenuPage
 import de.yisrime.lrcbar.ui.page.SystemSpecialPage
 import de.yisrime.lrcbar.ui.page.TestPage
@@ -207,6 +208,7 @@ fun NavGraphBuilder.pageDestinations(
 ) {
     composable("ChoosePage") { ChoosePage(navController) }
     composable("TestPage") { TestPage(navController, currentRoute) }
+    composable("LogPage") { LogPage(navController) }
     composable("MenuPage") { MenuPage(navController) }
     composable("LyricPage") { LyricPage(navController) }
     composable("IconPage") { IconPage(navController) }
