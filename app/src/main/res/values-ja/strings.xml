@@ -9,7 +9,6 @@
     <string name="module_fifth">フローティングタイトル</string>
     <string name="module_sixth">アニメーションの設定</string>
     <string name="menu_page">メニュー</string>
-    <string name="click_to_install">タップで最新のバージョンをインストール</string>
     <string name="show_logcat">logcat を表示</string>
     <string name="show_launcher_icon">アイコンを表示</string>
     <string name="module_extend">このページを変更後にシステムインターフェースとプレーヤーを再起動してください</string>

@@ -29,7 +29,6 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.core.graphics.toColorInt
-import androidx.core.net.toUri
 import de.yisrime.lrcbar.MainActivity
 import de.yisrime.lrcbar.R
 import de.yisrime.lrcbar.data.Data
@@ -93,10 +92,6 @@ object ActivityTools {
             }
         }
         unit(value)
-    }
-
-    fun openUrl(url: String) {
-        MainActivity.appContext.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
     }
 
     fun restartApp() {

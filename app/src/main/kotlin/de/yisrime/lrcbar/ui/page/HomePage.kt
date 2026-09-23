@@ -64,7 +64,6 @@ import de.yisrime.lrcbar.config.ActivityOwnSP.config
 import de.yisrime.lrcbar.tools.ActivityTools
 import de.yisrime.lrcbar.tools.AnimTools
 import top.yukonga.miuix.kmp.basic.BasicComponent
-import top.yukonga.miuix.kmp.basic.BasicComponentColors
 import top.yukonga.miuix.kmp.basic.BasicComponentDefaults
 import top.yukonga.miuix.kmp.basic.Card
 import top.yukonga.miuix.kmp.basic.Icon
@@ -194,13 +193,6 @@ fun HomePage(
                         visible = !masterSwitchState.value
                     ) {
                         Column {
-                            Card(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(horizontal = 12.dp, vertical = 6.dp)
-                            ) {
-                                ShowSuperLyric()
-                            }
                             Card(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -369,20 +361,4 @@ fun HomePage(
             }
         }
     }
-}
-
-@Composable
-fun ShowSuperLyric() {
-    val openSuperLyricUrl = { ActivityTools.openUrl("https://github.com/HChenX/SuperLyric/releases") }
-    SuperArrow(
-        title = stringResource(R.string.super_lyric_tip),
-        titleColor = BasicComponentColors(
-            color = Color.Red,
-            disabledColor = MiuixTheme.colorScheme.disabledOnSecondaryVariant
-        ),
-        summary = stringResource(R.string.click_to_install),
-        onClick = {
-            openSuperLyricUrl()
-        }
-    )
 }

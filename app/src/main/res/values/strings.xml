@@ -9,8 +9,6 @@
     <string name="module_fifth">Floating title</string>
     <string name="module_sixth">Animation settings</string>
     <string name="menu_page">Menu</string>
-    <string name="super_lyric_tip" translatable="false">SuperLyric</string>
-    <string name="click_to_install">Click to install the latest version</string>
     <string name="show_logcat">Show Logcat</string>
     <string name="show_launcher_icon">Show Icon</string>
     <string name="module_extend">Please restart the system interface and player after modifying this page</string>
