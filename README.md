@@ -16,7 +16,7 @@
 
 ## 版本与作者
 
-- 版本：1.0.0（versionCode 100）
+- 版本：1.0.6（versionCode 106）
 - 原项目作者：[577fkj](https://github.com/577fkj/StatusBarLyric) / [Block-Network](https://github.com/Block-Network/StatusBarLyric)
 - 本分支维护与 libxposed 适配：[Yis_Rime](https://github.com/YisRime)
 
